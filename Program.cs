@@ -66,6 +66,11 @@ string Task1(string _string)
 
 string Task2(string _string)
 { //(\w +[-]{ 1}\w +)| (\w +)| (["]{1}[^"] +["]{1})
+    Regex regex = new Regex(@"(["]{1}[^"]+["]{1})|(\w+[-]{1}\w+)|(\w+)");
+    foreach (Match match in regex.Matches(_string))
+    {
+        Console.WriteLine(match.Groups[1].Value);
+    }
     return _string;
 }
 
