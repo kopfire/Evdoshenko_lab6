@@ -22,7 +22,7 @@ while (true){
                 string input = Console.ReadLine();
                 if (input == "exit")
                     break;
-                Console.WriteLine(Task2(input));
+                Task2(input);
             }
             break;
         case "3":
@@ -65,11 +65,11 @@ string Task1(string _string)
 }
 
 string Task2(string _string)
-{ //(\w +[-]{ 1}\w +)| (\w +)| (["]{1}[^"] +["]{1})
-    Regex regex = new Regex(@"(["]{1}[^"]+["]{1})|(\w+[-]{1}\w+)|(\w+)");
-    foreach (Match match in regex.Matches(_string))
+{
+    Regex regexToken = new Regex(@"(\w+[-]{1}\w+)|(\w+)|([""]{1}[^""]+[""]{1})");
+    foreach (Match match in regexToken.Matches(_string))
     {
-        Console.WriteLine(match.Groups[1].Value);
+        Console.WriteLine(match.Groups[0].Value);
     }
     return _string;
 }
@@ -87,10 +87,15 @@ string Task3(string _string)
 
 string Task4(string _string)
 {
+    Regex regexQuotes = new Regex(@"[""]{1}[^""]+[""]{1}");
+    foreach (Match match in regexQuotes.Matches(_string))
+    {
+        Console.WriteLine(match.Groups[0].Value);
+    }
     return _string;
 }
 
 string Task5(string _string)
 {
-    return _string;
+    return Regex.Replace(_string, @"((0|1)[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?", "TBD");
 }
