@@ -1,7 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 
 Console.WriteLine("Для выхода из задания введите exit.");
-while (true){
+while (true)
+{
     Console.Write("Выберите номер задания: ");
     switch (Console.ReadLine())
     {
@@ -64,35 +65,27 @@ string Task1(string _string)
     return Regex.Replace(_string, @"(\d)\1", "*");
 }
 
-string Task2(string _string)
+void Task2(string _string)
 {
     Regex regexToken = new Regex(@"(\w+[-]{1}\w+)|(\w+)|([""]{1}[^""]+[""]{1})");
     foreach (Match match in regexToken.Matches(_string))
-    {
         Console.WriteLine(match.Groups[0].Value);
-    }
-    return _string;
+    return;
 }
 
 string Task3(string _string)
 {
     Regex regexPrivate = new Regex(@"(^[А-Я]{1}\d{3}[А-Я]{2}\d{3}$)|(^[А-Я]{1}\d{3}[А-Я]{2}\d{2}$)");
     Regex regexTaxi = new Regex(@"(^[А-Я]{2}\d{5}$)|(^[А-Я]{2}\d{6}$)");
-    if (regexPrivate.IsMatch(_string))
-        return "Частный";
-    if (regexTaxi.IsMatch(_string))
-        return "Такси";
-    return "Неверно";
+    return regexPrivate.IsMatch(_string) ? "Частный" : regexTaxi.IsMatch(_string) ? "Такси" : "Неверно";
 }
 
 string Task4(string _string)
 {
-    Regex regexQuotes = new Regex(@"[""]{1}[^""]+[""]{1}");
-    foreach (Match match in regexQuotes.Matches(_string))
+    return Regex.Replace(_string, @"[""]{1}[^""]+[""]{1}", delegate (Match m)
     {
-        Console.WriteLine(match.Groups[0].Value);
-    }
-    return _string;
+        return string.Join("", m.Value.Replace("\"", "").Split(" ").Select(p => p.First())).ToUpper();
+    });
 }
 
 string Task5(string _string)
